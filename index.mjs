@@ -27,7 +27,13 @@ app.use(passport.session());
 app.use(routes);
 
 app.post('/api/auth', passport.authenticate("local"), (request, response)=> {
+    response.status(200);
+});
 
+app.get('/api/auth/status', (request, response)=> {
+    console.log('Inside /auth/status endpoint');
+    console.log(request.user);
+    return request.user? response.send(request.user): response.sendStatus(401);
 })
 const PORT = process.env.PORT || 3000;
 
